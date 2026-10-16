@@ -1,11 +1,13 @@
 import { app } from "./app.js";
 import { config } from "./config.js";
 import { closeDatabase, connectToDatabase } from "./db/mongo.js";
+import { seedDatabase } from "./db/seed.js";
 
 async function start(): Promise<void> {
   try {
     await connectToDatabase();
     console.log(`[Database] Connected to MongoDB: ${config.mongodbDb}`);
+    await seedDatabase();
   } catch (error) {
     console.warn("[Database] MongoDB is not connected yet. Check MONGODB_URI in .env.local.", error);
   }
